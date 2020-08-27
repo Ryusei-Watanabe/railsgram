@@ -10,17 +10,19 @@
   </head>
 
   <body>
-    <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
-    <% if logged_in? %>
-      <%= link_to "Profile", user_path(current_user.id) %>
-      <%= link_to "Logout", session_path(current_user.id), method: :delete %>
-      <%= link_to "home", posts_path, id: :home %>
-    <% else %>
-      <%= link_to "Sign up", new_user_path, id: :signup %>
-      <%= link_to "Login", new_session_path, id: :login %>
-    <% end %>
+    <div class="headder">
+      <% if logged_in? %>
+        <%= link_to "Profile", user_path(current_user.id) %>
+        <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+        <%= link_to "home", posts_path, id: :home %>
+      <% else %>
+        <%= link_to "Sign up", new_user_path, id: :signup %>
+        <%= link_to "Login", new_session_path, id: :login %>
+      <% end %>
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, class: "#{key}") %>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
