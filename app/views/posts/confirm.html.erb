@@ -1,12 +1,15 @@
-<h1>投稿確認</h1>
-<%= form_with(model: @post, url: posts_path, local: true) do |form| %>
+<div class="wrapper">
+  <%= form_with(model: @post, url: posts_path, local: true) do |form| %>
+  <div class="image_wrapper">
+    <%= image_tag(@post.image.url, class: "image") if @post.image && @post.image.url %>
+    <%= form.hidden_field :image_cache %>
+    <%= form.hidden_field:content %>
+  </div>
   <p>
     <strong>Content:</strong>
     <%= @post.content %>
   </p>
-  <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
-  <%= form.hidden_field :image_cache %>
-  <%= form.hidden_field:content %>
-  <%= form.submit "投稿する" %>
-  <%= form.submit "戻る", name: "back" %>
+</div>
+<%= form.submit "投稿する" %>
+<%= form.submit "戻る", name: "back" %>
 <% end %>

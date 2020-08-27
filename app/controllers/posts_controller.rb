@@ -53,10 +53,13 @@ class PostsController < ApplicationController
   end
 
   private
-    def set_post
-      @post = Post.find(params[:id])
-    end
-    def post_params
-      params.require(:post).permit(:image, :image_cache, :content)
-    end
+  def user_management
+    set_post == current_user
+  end
+  def set_post
+    @post = Post.find(params[:id])
+  end
+  def post_params
+    params.require(:post).permit(:image, :image_cache, :content)
+  end
 end
