@@ -12,6 +12,11 @@ class PostsController < ApplicationController
     render :new if @post.invalid?
   end
   def edit
+    if @post.user == current_user
+      render "edit"
+    else
+      redirect_to posts_path
+    end
   end
   def new
       @post = Post.new
@@ -53,9 +58,6 @@ class PostsController < ApplicationController
   end
 
   private
-  def user_management
-    set_post == current_user
-  end
   def set_post
     @post = Post.find(params[:id])
   end
