@@ -15,6 +15,7 @@
         <%= link_to "Profile", user_path(current_user.id) %>
         <%= link_to "Logout", session_path(current_user.id), method: :delete %>
         <%= link_to "home", posts_path, id: :home %>
+        <%= link_to "favorites", favorites_path, id: :favorites %>
       <% else %>
         <%= link_to "Sign up", new_user_path, id: :signup %>
         <%= link_to "Login", new_session_path, id: :login %>

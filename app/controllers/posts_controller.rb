@@ -5,6 +5,7 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
   def show
+    @favorite = current_user.favorites.find_by(post_id: @post.id)
   end
   def confirm
     @post = Post.new(post_params)
