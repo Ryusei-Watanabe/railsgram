@@ -1,0 +1,18 @@
+<%= form_with(model: @user, local: true, url:user_path) do |form| %>
+  <div class="wrapper">
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_area :name %>
+    </div>
+    <div class="field">
+      <%= image_tag(@user.profile_picture.url, class: "image") if @user.profile_picture && @user.profile_picture.url %>
+      <%= form.file_field :profile_picture %>
+      <%= form.hidden_field :profile_picture_cache %>
+    </div>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+    <%= link_to 'Show', @user %> |
+    <%= link_to 'Back', posts_path %>
+  </div>
+<% end %>

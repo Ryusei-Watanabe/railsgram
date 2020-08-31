@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     if @post.user == current_user
       render "edit"
     else
-      redirect_to posts_path
+      redirect_to post_path
     end
   end
   def new
