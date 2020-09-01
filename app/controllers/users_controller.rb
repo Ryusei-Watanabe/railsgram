@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile_picture)
   end
   def check_user
-    if @user.id =! current_user.id
+    if @user.id != current_user.id
       redirect_to user_path
     end
   end
