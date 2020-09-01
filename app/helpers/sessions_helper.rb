@@ -5,4 +5,9 @@ module SessionsHelper
   def logged_in?
     current_user.present?
   end
+  def logged_user
+    if logged_in? == true
+      redirect_to posts_path
+    end
+  end
 end
