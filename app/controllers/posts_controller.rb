@@ -62,7 +62,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:image, :image_cache, :content)
   end
   def check_user
-    if @post.user =! current_user
+    if @post.user != current_user
       redirect_to post_path
     end
   end
