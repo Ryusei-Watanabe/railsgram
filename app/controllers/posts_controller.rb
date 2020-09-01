@@ -26,7 +26,7 @@ class PostsController < ApplicationController
         format.html{render :new}
       else
         if @post.save
-          # PostMailer.post_mail(@post).deliver
+          PostMailer.post_mail(@post).deliver
           format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
           format.json { render :show, status: :created, location: @post }
         else
