@@ -3,15 +3,15 @@
 <h1>Favorites</h1>
 <% @favorites.each do |favorite| %>
   <div class="article_wrapper">
-    <%= link_to favorite do %>
+    <%= link_to post_path(favorite.post) do %>
       <div class="article">
-        <div class="user_name"><%= favorite.user.name%></div>
+        <div class="user_name"><%= favorite.post.user.name%></div>
         <div class="image_wrapper"><%= image_tag favorite.post.image.url, class: "image" %></div>
         <div class="content_wrapper"><%= favorite.post.content %></div>
       </div>
     <% end %>
   </div>
 <% end %>
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Back', favorites_path %>
 <% end %>
 </div>

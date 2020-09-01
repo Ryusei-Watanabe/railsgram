@@ -5,7 +5,6 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
 module Railsgram
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -20,6 +19,8 @@ module Railsgram
     config.generators do |g|
     g.assets false
     g.helper false
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
     end
   end
 end

@@ -1,10 +1,9 @@
 class FavoritesController < ApplicationController
   def index
-    @favorites = Favorite.all
+    @favorites = current_user.favorites
   end
   def show
     @post = current_user.favorites.find(params[:id]).post
-    puts @post.id
     redirect_to post_path(@post.id)
   end
   def create

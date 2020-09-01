@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:edit, :destroy]
   def new
   @user = User.new
   end
@@ -15,11 +16,6 @@ class UsersController < ApplicationController
   def show
   end
   def edit
-    if @user.id == current_user.id
-      render "edit"
-    else
-      redirect_to user_path
-    end
   end
   def update
     if @user.update(user_params)
@@ -41,5 +37,10 @@ class UsersController < ApplicationController
   end
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile_picture)
+  end
+  def check_user
+    if @user.id =! current_user.id
+      redirect_to user_path
+    end
   end
 end

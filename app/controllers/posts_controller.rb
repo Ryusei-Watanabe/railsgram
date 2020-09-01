@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user
+  before_action :check_user, only: [:edit, :destroy]
   def index
     @posts = Post.all
   end
@@ -13,11 +14,6 @@ class PostsController < ApplicationController
     render :new if @post.invalid?
   end
   def edit
-    if @post.user == current_user
-      render "edit"
-    else
-      redirect_to post_path
-    end
   end
   def new
       @post = Post.new
@@ -30,6 +26,7 @@ class PostsController < ApplicationController
         format.html{render :new}
       else
         if @post.save
+          PostMailer.post_mail(@post).deliver
           format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
           format.json { render :show, status: :created, location: @post }
         else
@@ -57,12 +54,16 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   private
   def set_post
     @post = Post.find(params[:id])
   end
   def post_params
     params.require(:post).permit(:image, :image_cache, :content)
+  end
+  def check_user
+    if @post.user =! current_user
+      redirect_to post_path
+    end
   end
 end
