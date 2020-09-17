@@ -1,16 +1,36 @@
 <div class="wrapper">
   <p id="notice"><%= notice %></p>
   <h1><%= @user.name %>のページ</h1>
+  <div> フォロー:
+    <% @user.following.each do |follow| %>
+      <%= follow.name %>
+    <% end %>
+  </div>
+  <div> フォロワー:
+    <% @user.followers.each do |follower| %>
+      <%= follower.name %>
+    <% end %>
+  </div>
   <% if @user.profile_picture? %>
   <p><%= image_tag @user.profile_picture.url, class: "image" %></p>
   <% end %>
-  <p>メールアドレス: <%= @user.email %></p>
   <% if @user.id == current_user.id %>
+    <p>メールアドレス: <%= @user.email %></p>
     <%= link_to 'Edit', edit_user_path(@user) %>
     <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
   <% else %>
   <div>お気に入り一覧</div>
+  <% @user.favorites.each do |favorite| %>
+    <div class="article_wrapper">
+      <%= link_to post_path(favorite.post) do %>
+        <div class="article">
+          <div class="user_name"><%= favorite.post.user.name%></div>
+          <div class="image_wrapper"><%= image_tag favorite.post.image.url, class: "image" %></div>
+          <div class="content_wrapper"><%= favorite.post.content %></div>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-
+  <% end %>
   <%= link_to 'Back', posts_path %>
 </div>

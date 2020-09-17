@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'relationships/create'
+  get 'relationships/destroy'
   resources :posts do
     collection do
       post :confirm
@@ -9,4 +11,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   root 'sessions#new'
   mount LetterOpenerWeb::Engine, at: "/inbox"
+  resources :relationships, only: [:create, :destroy]
 end
